@@ -1,8 +1,8 @@
 """create customers
 
-Revision ID: b509be9a4909
+Revision ID: 3b3b54389135
 Revises: 
-Create Date: 2023-06-06 14:55:51.030133
+Create Date: 2023-10-23 12:10:25.412289
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b509be9a4909'
+revision = '3b3b54389135'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -25,6 +25,7 @@ def upgrade():
         );
         """
     )
+
 
 def downgrade():
     op.execute(
