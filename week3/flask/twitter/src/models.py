@@ -13,6 +13,15 @@ class User(db.Model):
 
     tweets = db.relationship('Tweet', backref='user', cascade="all,delete")
 
+    def __init__(self, username: str, password: str):
+        self.username = username
+        self.password = password
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+        }
 
 likes_table = db.Table(
     'likes',
@@ -35,7 +44,6 @@ likes_table = db.Table(
     )
 )
 
-
 class Tweet(db.Model):
     __tablename__ = 'tweets'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -51,3 +59,13 @@ class Tweet(db.Model):
         lazy='subquery',
         backref=db.backref('liked_tweets', lazy=True)
     )
+    def __init__(self, content: str, user_id: int):
+        self.content = content
+        self.user_id = user_id
+    def serialize(self):
+        return {
+            'id': self.id,
+            'content': self.content,
+            'created_at': self.created_at.isoformat(),
+            'user_id': self.user_id
+        }
